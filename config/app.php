@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'version' => '0.1.0',
 
     /*
     |--------------------------------------------------------------------------
@@ -225,7 +226,5 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
-
 ];
