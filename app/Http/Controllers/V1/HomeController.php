@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Http\Controllers\V1;
 
 /**
  * Class HomeController
- * @package App\Http\Controllers\V1
+ * @package App\Http\Controllers
  */
 class HomeController
 {
@@ -14,7 +13,9 @@ class HomeController
      */
     public function index() {
         return response()->json([
-            'page' => 'home'
+            'api' => [
+                'version' => config('app.version')
+            ]
         ]);
     }
 }
