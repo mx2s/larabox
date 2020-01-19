@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\V1;
 
+use App\Http\V1\Transformers\User\UserTransformer;
+
 /**
  * Class HomeController
  * @package App\Http\Controllers
@@ -17,5 +19,10 @@ class HomeController
                 'version' => config('app.version')
             ]
         ]);
+    }
+
+    public function me() {
+        $me = auth()->user();
+        return response()->transform(UserTransformer::class, $me);
     }
 }

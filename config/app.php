@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\ResponseMacroServiceProvider;
+
 return [
     'version' => '0.1.0',
 
@@ -175,7 +177,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        ResponseMacroServiceProvider::class,
     ],
 
     /*

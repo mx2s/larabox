@@ -15,11 +15,14 @@ Route::get('/', 'HomeController@index');
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
-], function ($router) {
-    Route::post('login', 'Auth\AuthController@login');
-    Route::post('logout', 'Auth\AuthController@logout');
-    Route::post('refresh', 'Auth\AuthController@refresh');
-});
+], function () {
+    Route::group([
+        'prefix' => 'auth',
+    ], function () {
+        Route::post('login', 'Auth\AuthController@login');
+        Route::post('logout', 'Auth\AuthController@logout');
+        Route::post('refresh', 'Auth\AuthController@refresh');
+    });
 
-Route::get('me', 'Auth\AuthController@me');
+    Route::get('me', 'HomeController@me');
+});
