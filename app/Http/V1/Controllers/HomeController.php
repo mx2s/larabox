@@ -21,6 +21,9 @@ class HomeController
         ]);
     }
 
+    /**
+     * @return mixed
+     */
     public function me() {
         $me = auth()->user();
         return response()->transform(UserTransformer::class, $me);

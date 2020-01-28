@@ -13,10 +13,11 @@
 
 Route::get('/', 'HomeController@index');
 
+Route::post('auth/login', 'Auth\AuthController@login');
+
 Route::group([
-    'middleware' => 'api',
+    'middleware' => ['api', 'jwt'],
 ], function () {
-    Route::post('auth/login', 'Auth\AuthController@login');
     Route::post('auth/logout', 'Auth\AuthController@logout');
     Route::post('auth/refresh', 'Auth\AuthController@refresh');
 
