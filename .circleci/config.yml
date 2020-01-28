@@ -1,0 +1,41 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # Specify the version you desire here
+      - image: circleci/php:7.4
+      - image: postgres:12
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_DB=larabox_test
+          - POSTGRES_PASSWORD=1234
+
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      - run: sudo apt update && sudo apt install zlib1g-dev libsqlite3-dev libpq-dev
+      - run: sudo docker-php-ext-install zip pdo pdo_pgsql
+
+      # Download and cache dependencies
+      # composer cache
+      - restore_cache:
+          keys:
+          # "composer.json" can be used if "composer.json"
+          # is not committed to the repository.
+          - v1-dependencies-{{ checksum "composer.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: composer install -n --prefer-dist
+
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+
+      - run: cp .circleci/.env.example .env.testing
+
+      - run: php artisan migrate --env=testing --force
+
+      - run: php vendor/bin/phpunit
